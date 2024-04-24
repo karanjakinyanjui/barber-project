@@ -30,23 +30,16 @@ export async function GET(req) {
 export async function POST(req) {
   let tx = await req.json();
   tx = processTransaction(tx);
-  return JSON.stringify({
-    ResultCode: 0,
-    ResultDesc: "Success",
-  });
 
   await prisma.transaction.create({
     data: tx,
   });
 
   return new Response(
-    JSON.stringify(
-      {
-        message: "Transaction created successfully",
-      },
-      null,
-      2
-    )
+    JSON.stringify({
+      ResultCode: 0,
+      ResultDesc: "Success",
+    })
   );
 }
 
