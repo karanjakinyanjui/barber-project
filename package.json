@@ -9,7 +9,7 @@
     "clean": "rm -rf prisma/migrations prisma/dev.db",
     "migrate": "npm run clean; npx prisma migrate dev --name init",
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
