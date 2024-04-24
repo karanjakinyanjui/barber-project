@@ -1,0 +1,37 @@
+[
+  {
+    "username": "user1",
+    "phone": "1234567890",
+    "name": "User One",
+    "role": "user",
+    "password": "password1"
+  },
+  {
+    "username": "user2",
+    "phone": "2345678901",
+    "name": "User Two",
+    "role": "user",
+    "password": "password2"
+  },
+  {
+    "username": "user3",
+    "phone": "3456789012",
+    "name": "User Three",
+    "role": "user",
+    "password": "password3"
+  },
+  {
+    "username": "user4",
+    "phone": "4567890123",
+    "name": "User Four",
+    "role": "user",
+    "password": "password4"
+  },
+  {
+    "username": "user5",
+    "phone": "5678901234",
+    "name": "User Five",
+    "role": "user",
+    "password": "password5"
+  }
+]
