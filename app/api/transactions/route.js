@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic"; // defaults to auto
 import { PrismaClient } from "@prisma/client";
+import { processTransaction } from "@/lib/helpers";
 
 const prisma = new PrismaClient();
 
@@ -27,7 +28,12 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-  const tx = await req.json();
+  let tx = await req.json();
+  tx = processTransaction(tx);
+  return JSON.stringify({
+    ResultCode: 0,
+    ResultDesc: "Success",
+  });
 
   await prisma.transaction.create({
     data: tx,
