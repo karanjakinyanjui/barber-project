@@ -21,6 +21,8 @@ export async function POST(req, res) {
       },
     });
 
+    console.log("User created:", user);
+
     return new Response(
       JSON.stringify({ message: "User created successfully", user }),
       {
@@ -29,6 +31,7 @@ export async function POST(req, res) {
     );
   } catch (error) {
     console.error("Error creating user:", error);
+    console.error("Error details:", error.message, error.stack);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
