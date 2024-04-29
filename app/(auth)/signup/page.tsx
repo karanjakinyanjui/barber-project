@@ -18,9 +18,29 @@ import { signupFormSchema } from "@/components/formschema";
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center my-10">
-      <SignupForm />
-    </div>
+    <section className="text-gray-600 body-font relative">
+      <div className="absolute inset-0 bg-gray-300">
+        <img
+          src="https://picsum.photos/1200/800"
+          alt="Random Image"
+          className="w-full h-full object-cover"
+          style={{
+            filter: "grayscale(1) contrast(1.2) opacity(0.4)",
+          }}
+        />
+      </div>
+
+      <div className="container px-5 py-24 mx-auto flex">
+        <div className="lg:w-1/3 md:w-1/2 bg-white dark:bg-gray-900 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+          <h2 className="text-gray-900 dark:text-white text-lg mb-1 text-center font-medium title-font">
+            Sign Up
+          </h2>
+          <div className="relative mb-4">
+            <SignupForm />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -31,7 +51,7 @@ const formFields = [
     name: "username",
     label: "Username",
     placeholder: "your username",
-    description: "This is your public display name.",
+    description: "Username",
   },
   {
     name: "name",
@@ -81,20 +101,58 @@ export function SignupForm() {
         body: JSON.stringify(data),
       });
 
+      console.log("Server Response:", response);
+
       if (response.ok) {
         const { message } = await response.json();
         console.log(message);
       } else {
-        const { message, error } = await response.json();
-        console.error("Signup failed:", message, error);
+        const { message } = await response.json();
+        console.error("Signup failed:", message);
       }
     } catch (error) {
       console.error("Error signing up:", error);
     }
   }
+
+  const formFields = [
+    {
+      name: "username",
+      label: "Username",
+      placeholder: "your username",
+      description: "Username",
+    },
+    {
+      name: "name",
+      label: "Name",
+      placeholder: "your name",
+      description: "Name",
+    },
+    {
+      name: "email",
+      label: "Email",
+      placeholder: "example@email.com",
+      type: "email",
+    },
+    {
+      name: "password",
+      label: "Password",
+      placeholder: "******",
+      type: "password",
+    },
+    {
+      name: "confirmPassword",
+      label: "Confirm Password",
+      placeholder: "******",
+      type: "password",
+    },
+  ];
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="dark:bg-gray-900 dark:text-gray-100  space-y-3 p-2 rounded-md"
+      >
         {formFields.map(({ name, label, placeholder, description, type }) => (
           <FormField
             key={name}
@@ -115,6 +173,9 @@ export function SignupForm() {
                     type={type || "text"}
                     placeholder={placeholder}
                     {...field}
+                    className={`dark:bg-gray-800 dark:text-gray-300 border ${
+                      name === "confirmPassword" ? "border-red-500" : ""
+                    }`}
                   />
                 </FormControl>
                 {description && (
@@ -126,7 +187,9 @@ export function SignupForm() {
           />
         ))}
 
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" className="dark:bg-gray-800 dark:text-gray-300">
+          Sign Up
+        </Button>
       </form>
     </Form>
   );
