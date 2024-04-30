@@ -82,10 +82,11 @@ export function LoginForm() {
       });
 
       if (response.ok) {
-        const { token } = await response.json();
+        const { token, user_id } = await response.json();
         // Handle successful login, e.g., store token in local storage or cookies
         console.log("Login successful, token:", token);
         localStorage.setItem("jwt_token", token);
+        localStorage.setItem("app_user_id", user_id);
       } else {
         const { message } = await response.json();
         console.error("Login failed:", message);

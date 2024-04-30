@@ -48,6 +48,11 @@ export async function getTransactions() {
 }
 
 export async function updateTransaction(id, data) {
-  const response = await axios.patch(`/transactions`, { id, ...data });
+  const response = await axios.patch(`/api/transactions`, { id, ...data });
   return response.data;
 }
+
+// export async function claimTransaction(transID){
+//   const response = await axios.patch(`/transactions`, { id, ...data });
+//   return response.data;
+// }

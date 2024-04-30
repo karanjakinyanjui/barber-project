@@ -63,8 +63,8 @@ import * as jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
-const generateJWT = ({ username, role, name }) => {
-  const token = jwt.sign({ username, role, name }, "secret", {
+const generateJWT = ({ id, username, role, name }) => {
+  const token = jwt.sign({ id, username, role, name }, "secret", {
     expiresIn: "1h",
   });
   return token;
@@ -95,8 +95,14 @@ export async function POST(req) {
       });
     }
 
+    const { id, role, name } = user;
+
     return new Response(
-      JSON.stringify({ message: "Login successful", token: generateJWT(user) }),
+      JSON.stringify({
+        message: "Login successful",
+        token: generateJWT({ id, username, role, name }),
+        user_id: id,
+      }),
       {
         status: 200,
       }

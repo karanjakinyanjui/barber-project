@@ -1,9 +1,6 @@
-
 import React from "react";
-import { Button } from "@/components/ui/button";
-import claim from "@/public/claim.png";
 import transcimg from "@/public/transc.png";
-import Image from "next/image";
+import { ClaimButton } from "./ClaimButton";
 
 interface TransactionCardProps {
   transTime: string;
@@ -58,13 +55,7 @@ export default function TransactionCard({
           </div>
 
           <div className="flex items-end justify-end">
-            <Button
-              variant="secondary"
-              className="flex w-full bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-900"
-            >
-              <Image src={claim} alt="Claim" className="mr-2 h-8 w-8" />
-              Claim
-            </Button>
+            <ClaimButton transID={transID} />
           </div>
         </div>
       </article>

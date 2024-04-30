@@ -5,8 +5,16 @@ import { processTransaction } from "@/lib/helpers";
 const prisma = new PrismaClient();
 
 // Get all tx
-export async function GET(req) {
-  let tx = await prisma.transaction.findMany({
+export async function GET(request) {
+  const searchParams = request.nextUrl.searchParams;
+  console.log(searchParams);
+  // return new Response("hsbhd");
+  let claimed = searchParams.get("claimed");
+  let dateStr = searchParams.get("date");
+  let start = searchParams.get("start");
+  let end = searchParams.get("end");
+  const q = {
+    where: {},
     orderBy: {
       TransactionTime: "desc",
     },
@@ -18,7 +26,48 @@ export async function GET(req) {
         },
       },
     },
-  });
+  };
+  if (claimed) {
+    if (claimed === "true") {
+      q.where = {
+        NOT: [
+          {
+            userId: null,
+          },
+        ],
+      };
+    } else {
+      q.where = {
+        userId: null,
+      };
+    }
+  }
+  if (start) {
+    q.where = {
+      ...q.where,
+      TransactionTime: {
+        gte: new Date(start),
+        lte: new Date(end),
+      },
+    };
+  }
+
+  if (dateStr) {
+    let today = new Date(dateStr);
+    let date = new Date(dateStr);
+
+    let nextDate = new Date(date.setDate(date.getDate() + 1));
+
+    q.where = {
+      ...q.where,
+      TransactionTime: {
+        gte: today,
+        lt: nextDate,
+      },
+    };
+  }
+  console.log(q);
+  let tx = await prisma.transaction.findMany(q);
   tx = tx.map((t) => ({
     ...t,
     user: t.User?.name,
@@ -44,11 +93,11 @@ export async function POST(req) {
 }
 
 export async function PATCH(req) {
-  const tx = await req.json();
+  const { id, userId } = await req.json();
 
   await prisma.transaction.update({
-    where: { id: tx.id },
-    data: tx,
+    where: { TransID: id },
+    data: { userId },
   });
 
   return new Response(
