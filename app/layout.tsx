@@ -24,7 +24,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavBar />
-          <div className="mt-20 min-h-screen w-full overflow-x-hidden p-2">
+          <div className="mt-16 min-h-screen w-full overflow-x-hidden bg-gray-700 dark:bg-black pt-6">
             {children}
           </div>
         </ThemeProvider>

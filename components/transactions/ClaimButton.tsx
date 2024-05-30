@@ -11,19 +11,26 @@ interface Props {
 }
 
 export function ClaimButton({ transID }: Props) {
-  const handleClaim = () => {
+  const [loading, setLoading] = React.useState(false);
+
+  const handleClaim = async () => {
+    setLoading(true);
     const userId = parseInt(localStorage.getItem("app_user_id") || "");
-    updateTransaction(transID, { userId });
+    await updateTransaction(transID, { userId });
+    setLoading(false);
   };
 
   return (
     <Button
       onClick={handleClaim}
       variant="secondary"
-      className="flex w-full bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-900"
+      className={`flex w-full bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-900 ${
+        loading ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      disabled={loading}
     >
       <Image src={claim} alt="Claim" className="mr-2 h-8 w-8" />
-      Claim
+      {loading ? "Claiming..." : "Claim"}
     </Button>
   );
 }

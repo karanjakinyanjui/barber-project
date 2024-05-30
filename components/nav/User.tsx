@@ -33,7 +33,14 @@ export default function User() {
               </Link>
             </Button>
           </DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button asChild variant="outline" className="w-full justify-start">
+              <Link href="/my-transactions">
+                <AlignHorizontalJustifyEnd className="mr-2 h-4 w-4" />
+                <span>My Transactions </span>
+              </Link>
+            </Button>
+          </DropdownMenuItem>
           <DropdownMenuItem>Team</DropdownMenuItem>
           <DropdownMenuItem>Subscription</DropdownMenuItem>
         </DropdownMenuContent>

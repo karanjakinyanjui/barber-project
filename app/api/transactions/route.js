@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 export async function GET(request) {
   const searchParams = request.nextUrl.searchParams;
   console.log(searchParams);
-  // return new Response("hsbhd");
   let claimed = searchParams.get("claimed");
   let dateStr = searchParams.get("date");
   let start = searchParams.get("start");

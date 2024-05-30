@@ -1,23 +1,3 @@
-// import { PageItems } from "@/constants/constants";
-// import Link from "next/link";
-// import React from "react";
-
-// export default function NavLinks() {
-//   return (
-//     <nav className="md:block hidden">
-//       <div className="flex justify-center space-x-4">
-//         {PageItems.map((item) => (
-//           <Link href={item.link} key={item.name}>
-//             <div className="flex flex-col items-center cursor-pointer">
-//               <span className="text-sm font-medium">{item.name}</span>
-//             </div>
-//           </Link>
-//         ))}
-//       </div>
-//     </nav>
-//   );
-// }
-
 import { PageItems } from "@/constants/constants";
 import Link from "next/link";
 import React from "react";

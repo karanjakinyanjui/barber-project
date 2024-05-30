@@ -23,9 +23,9 @@ export default function TransactionCard({
 
   return (
     <div className="max-w-sm w-full">
-      <article className="flex bg-white transition hover:shadow-xl rounded">
+      <article className="flex dark:bg-black border border-black dark:border-gray-200 bg-white transition hover:shadow-xl rounded">
         <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
-          <time className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
+          <time className="flex items-center justify-between gap-4 text-xs font-bold uppercase dark:text-white text-gray-900">
             <span>{formattedTime}</span>
           </time>
         </div>
@@ -36,7 +36,7 @@ export default function TransactionCard({
             backgroundImage: `url(${transcimg})`,
           }}
         >
-          <div className="border-s border-gray-900/10 p-4">
+          <div className="border-s dark:border-blue-500/50 border-gray-900/10 p-4">
             <div className="flex flex-row justify-end">
               <h3 className="font-bold uppercase text-gray-900">
                 <div className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">
@@ -49,7 +49,7 @@ export default function TransactionCard({
                 </div>
               </h3>
             </div>
-            <h3 className="font-bold uppercase flex justify-center items-center text-gray-900 mt-2">
+            <h3 className="font-bold uppercase flex justify-center items-center dark:text-white text-gray-900 mt-2">
               {transID}
             </h3>
           </div>
