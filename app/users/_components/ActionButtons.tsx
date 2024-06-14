@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const ActionButtons = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState("");
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     e.preventDefault();
     setLoading(id);
     if (confirm("Are you sure you want to delete this user?")) {
