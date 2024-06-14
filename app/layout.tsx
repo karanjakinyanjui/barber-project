@@ -2,6 +2,7 @@ import NavBar from "@/components/nav/NavBar";
 import "./globals.css";
 import Sidebar from "@/components/nav/Sidebar";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Barbershop Management System",
@@ -23,6 +24,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster />
+
           <NavBar />
           <div className="mt-16 min-h-screen w-full overflow-x-hidden bg-gray-700 dark:bg-black pt-6">
             {children}

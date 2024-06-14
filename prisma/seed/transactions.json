@@ -27,8 +27,7 @@
     "MSISDN": "254708765432",
     "FirstName": "Jane",
     "MiddleName": "",
-    "LastName": "Smith",
-    "userId": 2
+    "LastName": "Smith"
   },
   {
     "TransactionType": "Pay Bill",
@@ -58,8 +57,7 @@
     "MSISDN": "254702198765",
     "FirstName": "Emily",
     "MiddleName": "",
-    "LastName": "Brown",
-    "userId": 4
+    "LastName": "Brown"
   },
   {
     "TransactionType": "Pay Bill",
@@ -74,8 +72,7 @@
     "MSISDN": "254705678123",
     "FirstName": "Michael",
     "MiddleName": "",
-    "LastName": "Williams",
-    "userId": 5
+    "LastName": "Williams"
   },
   {
     "TransactionType": "Pay Bill",

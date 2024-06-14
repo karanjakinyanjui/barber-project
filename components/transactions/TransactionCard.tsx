@@ -1,28 +1,25 @@
 import React from "react";
 import transcimg from "@/public/transc.png";
 import { ClaimButton } from "./ClaimButton";
+import { Transaction } from "@prisma/client";
+import { UnClaimButton } from "./UnClaimButton";
 
 interface TransactionCardProps {
-  transTime: string;
-  transAmount: string;
-  transID: string;
+  transaction: Transaction;
 }
 
-export default function TransactionCard({
-  transTime,
-  transAmount,
-  transID,
-}: TransactionCardProps) {
-  const formattedTime = `${transTime.substring(0, 4)}-${transTime.substring(
+export default function TransactionCard({ transaction }: TransactionCardProps) {
+  const { TransTime, TransAmount, TransID } = transaction;
+  const formattedTime = `${TransTime.substring(0, 4)}-${TransTime.substring(
     4,
     6
-  )}-${transTime.substring(6, 8)} ${transTime.substring(
+  )}-${TransTime.substring(6, 8)} ${TransTime.substring(
     8,
     10
-  )}:${transTime.substring(10, 12)}:${transTime.substring(12, 14)}`;
+  )}:${TransTime.substring(10, 12)}:${TransTime.substring(12, 14)}`;
 
   return (
-    <div className="max-w-sm w-full">
+    <div className="mx-auto my-2 max-w-sm w-full">
       <article className="flex dark:bg-black border border-black dark:border-gray-200 bg-white transition hover:shadow-xl rounded">
         <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
           <time className="flex items-center justify-between gap-4 text-xs font-bold uppercase dark:text-white text-gray-900">
@@ -44,18 +41,22 @@ export default function TransactionCard({
                     <span className="text-xs font-bold text-gray-900 mr-1">
                       KES
                     </span>
-                    <h6>{transAmount}</h6>
+                    <h6>{TransAmount}</h6>
                   </div>
                 </div>
               </h3>
             </div>
             <h3 className="font-bold uppercase flex justify-center items-center dark:text-white text-gray-900 mt-2">
-              {transID}
+              {TransID}
             </h3>
           </div>
 
           <div className="flex items-end justify-end">
-            <ClaimButton transID={transID} />
+            {transaction.userId ? (
+              <UnClaimButton transaction={transaction} />
+            ) : (
+              <ClaimButton transaction={transaction} />
+            )}
           </div>
         </div>
       </article>

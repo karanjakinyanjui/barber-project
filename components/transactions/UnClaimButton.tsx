@@ -12,13 +12,13 @@ interface Props {
   transaction: Transaction;
 }
 
-export function ClaimButton({ transaction }: Props) {
+export function UnClaimButton({ transaction }: Props) {
   const [loading, setLoading] = useState(false);
   const handleClick = () => {
     setLoading(true);
     claimTransaction(transaction).then(() => {
       setLoading(false);
-      toast("Transaction Claimed");
+      toast("Transaction Released");
     });
   };
   return (
@@ -31,7 +31,7 @@ export function ClaimButton({ transaction }: Props) {
       disabled={loading}
     >
       <Image src={claim} alt="Claim" className="mr-2 h-8 w-8" />
-      {loading ? "Claiming..." : "Claim"}
+      {loading ? "UnClaiming..." : "UnClaim"}
     </Button>
   );
 }

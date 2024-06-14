@@ -2,18 +2,13 @@ import { getUser } from "@/auth";
 import TransactionList from "@/components/transactions/TransactionList";
 import prisma from "@/prisma/client";
 import { Transaction } from "@prisma/client";
-import { redirect } from "next/navigation";
 import React from "react";
 
 const TransactionsPage = async () => {
-  const user = getUser();
-  // console.log(user);
-
-  if (!user) return null;
-
+  const user = await getUser();
   const transactions = await prisma.transaction.findMany({
     where: {
-      userId: null,
+      userId: user?.id,
     },
   });
 
@@ -24,10 +19,10 @@ const TransactionsPage = async () => {
         TransID,
       },
       data: {
-        userId: user?.id,
+        userId: localStorage.getItem("app_user_id") || "",
       },
     });
-    redirect("/");
+    window.location.reload();
   };
 
   return <TransactionList transactions={transactions} />;

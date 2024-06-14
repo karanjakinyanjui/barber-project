@@ -65,7 +65,6 @@ export async function GET(request) {
       },
     };
   }
-  console.log(q);
   let tx = await prisma.transaction.findMany(q);
   tx = tx.map((t) => ({
     ...t,

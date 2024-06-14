@@ -3,6 +3,7 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import { Switch } from "@/components/ui/switch";
 
 export function ToggleTheme() {
   const { theme, setTheme } = useTheme();
@@ -14,9 +15,8 @@ export function ToggleTheme() {
           theme === "dark" ? "bg-primary" : "bg-stroke"
         }`}
       >
-        <input
-          type="checkbox"
-          onChange={() => {
+        <Switch
+          onClick={() => {
             if (typeof setTheme === "function") {
               setTheme(theme === "light" ? "dark" : "light");
             }
