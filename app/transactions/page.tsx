@@ -11,20 +11,6 @@ const TransactionsPage = async () => {
       userId: user?.id,
     },
   });
-
-  const handleClaimed = async ({ TransID }: Transaction) => {
-    "use server";
-    await prisma.transaction.update({
-      where: {
-        TransID,
-      },
-      data: {
-        userId: localStorage.getItem("app_user_id") || "",
-      },
-    });
-    window.location.reload();
-  };
-
   return <TransactionList transactions={transactions} />;
 };
 

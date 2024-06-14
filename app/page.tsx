@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const TransactionsPage = async () => {
-  const user = getUser();
+  const user = await getUser();
   // console.log(user);
 
   if (!user) return null;
@@ -24,7 +24,7 @@ const TransactionsPage = async () => {
         TransID,
       },
       data: {
-        userId: user?.id,
+        userId: user?.id!,
       },
     });
     redirect("/");

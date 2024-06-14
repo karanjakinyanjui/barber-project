@@ -93,7 +93,7 @@ interface SignupFormProps {
   form: UseFormReturn<FormData>;
 }
 
-export function SignupForm({ form }: SignupFormProps) {
+function SignupForm({ form }: SignupFormProps) {
   const router = useRouter();
 
   async function onSubmit(data: FormData) {
