@@ -8,16 +8,16 @@ let users = require("./users.json");
 const prisma = new PrismaClient();
 
 async function main() {
-  // const userList = users.map((user) => ({
-  //   ...user,
-  //   email: `${user.email}@mail.com`,
-  //   password: bcrypt.hashSync(user.password, 10),
-  //   role: "EMPLOYEE",
-  // }));
+  const userList = users.map((user) => ({
+    ...user,
+    email: `${user.email}@mail.com`,
+    password: bcrypt.hashSync(user.password, 10),
+    role: "EMPLOYEE",
+  }));
 
-  // await prisma.user.createMany({
-  //   data: userList,
-  // });
+  await prisma.user.createMany({
+    data: userList,
+  });
 
   transactions = transactions.map(processTransaction);
 

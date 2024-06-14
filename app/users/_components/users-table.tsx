@@ -1,5 +1,3 @@
-"use client";
-
 import {
   TableHead,
   TableRow,
@@ -10,14 +8,11 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-
-type User = {
-  id: number;
-  name: string;
-  phone: string;
-  username: string;
-  role: string;
-};
+import { User } from "@prisma/client";
+import { PencilIcon, TrashIcon } from "lucide-react";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import ActionButtons from "./ActionButtons";
 
 export function UsersTable({
   users,
@@ -26,12 +21,6 @@ export function UsersTable({
   users: User[];
   offset: number | null;
 }) {
-  const router = useRouter();
-
-  function onClick() {
-    router.replace(`/?offset=${offset}`);
-  }
-
   return (
     <>
       <form className="border shadow-sm rounded-lg">
@@ -39,8 +28,9 @@ export function UsersTable({
           <TableHeader>
             <TableRow>
               <TableHead className="max-w-[150px]">Name</TableHead>
+              <TableHead>Phone</TableHead>
               <TableHead className="hidden md:table-cell">Email</TableHead>
-              <TableHead className="hidden md:table-cell">Username</TableHead>
+              <TableHead className="hidden md:table-cell">Role</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
@@ -52,12 +42,8 @@ export function UsersTable({
         </Table>
       </form>
       {offset !== null && (
-        <Button
-          className="mt-4 w-40"
-          variant="secondary"
-          onClick={() => onClick()}
-        >
-          Next Page
+        <Button className="mt-4 w-40" variant="secondary">
+          <Link href={`/?offset=${offset}`}>Next Page</Link>
         </Button>
       )}
     </>
@@ -65,24 +51,19 @@ export function UsersTable({
 }
 
 function UserRow({ user }: { user: User }) {
-  const userId = user.id;
-  const deleteUserWithId = () => {};
+  const deleteUserWithId = async () => {
+    "use server";
+    toast("Deleting " + user.name);
+  };
 
   return (
     <TableRow>
       <TableCell className="font-medium">{user.name}</TableCell>
-      <TableCell className="hidden md:table-cell">{user.phone}</TableCell>
-      <TableCell>{user.username}</TableCell>
-      <TableCell>
-        <Button
-          className="w-full"
-          size="sm"
-          variant="outline"
-          formAction={deleteUserWithId}
-          disabled
-        >
-          Delete
-        </Button>
+      <TableCell>{user.phone}</TableCell>
+      <TableCell className="hidden md:table-cell">{user.email}</TableCell>
+      <TableCell className="hidden md:table-cell">{user.role}</TableCell>
+      <TableCell className="flex">
+        <ActionButtons id={user.id} />
       </TableCell>
     </TableRow>
   );

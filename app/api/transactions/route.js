@@ -76,6 +76,7 @@ export async function GET(request) {
 
 export async function POST(req) {
   let tx = await req.json();
+
   tx = processTransaction(tx);
 
   await prisma.transaction.create({

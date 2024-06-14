@@ -1,12 +1,23 @@
-import { getUsers } from "@/api";
-import { UsersTable } from "../users-table";
+import { getAdmin, getUser } from "@/auth";
+import { UsersTable } from "./_components/users-table";
+import prisma from "@/prisma/client";
+import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function page() {
-  const users = await getUsers();
+  const admin = await getAdmin();
+  if (!admin) {
+    return redirect("/");
+  }
+  const users = await prisma.user.findMany();
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
-      <div className="flex items-center mb-8">
+      <div className="flex justify-between items-center mb-8">
         <h1 className="font-semibold text-lg md:text-2xl">Users</h1>
+        <Button variant="outline">
+          <Link href="/users/new">Add User</Link>
+        </Button>
       </div>
       <div className="w-full mb-4"></div>
       <UsersTable users={users} offset={0} />
