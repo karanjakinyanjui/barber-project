@@ -30,7 +30,11 @@ const TransactionsPage = async () => {
     redirect("/");
   };
 
-  return <TransactionList transactions={transactions} />;
+  return (
+    <div className="p-1 md:p-4">
+      <TransactionList transactions={transactions} />
+    </div>
+  );
 };
 
 export default TransactionsPage;

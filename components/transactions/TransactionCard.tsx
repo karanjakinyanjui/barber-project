@@ -33,10 +33,10 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
             backgroundImage: `url(${transcimg})`,
           }}
         >
-          <div className="border-s dark:border-blue-500/50 border-gray-900/10 p-4">
+          <div className="border-s border-t dark:border-blue-500/50 border-gray-900/10 p-4">
             <div className="flex flex-row justify-end">
               <h3 className="font-bold uppercase text-gray-900">
-                <div className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">
+                <div className="whitespace-nowrap rounded-full   bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">
                   <div className="flex items-center">
                     <span className="text-xs font-bold text-gray-900 mr-1">
                       KES

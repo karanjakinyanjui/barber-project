@@ -20,7 +20,7 @@ export default function Sidebar() {
       <SheetTrigger className="block md:hidden justify-center items-center">
         <LucideMenu className="text-white" />
       </SheetTrigger>
-      <SheetContent side="left" className="bg-gray-8 00 dark:bg-black">
+      <SheetContent side="left" className="bg-gray-800 dark:bg-black">
         <SheetHeader>
           <SheetTitle className="flex justify-center items-center">
             <Logo1 />

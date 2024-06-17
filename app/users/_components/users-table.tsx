@@ -23,14 +23,20 @@ export function UsersTable({
 }) {
   return (
     <>
-      <form className="border shadow-sm rounded-lg">
-        <Table>
+      <form className="border shadow-sm rounded-lg text-white">
+        <Table className="">
           <TableHeader>
-            <TableRow>
-              <TableHead className="max-w-[150px]">Name</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead className="hidden md:table-cell">Email</TableHead>
-              <TableHead className="hidden md:table-cell">Role</TableHead>
+            <TableRow className=" ">
+              <TableHead className="max-w-[150px] font-bold text-white">
+                Name
+              </TableHead>
+              <TableHead className="font-bold text-white">Phone</TableHead>
+              <TableHead className="hidden md:table-cell font-bold text-white">
+                Email
+              </TableHead>
+              <TableHead className="hidden md:table-cell font-bold text-white">
+                Role
+              </TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>

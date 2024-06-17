@@ -25,12 +25,12 @@ export function ClaimButton({ transaction }: Props) {
     <Button
       onClick={handleClick}
       variant="secondary"
-      className={`flex w-full bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-900 ${
+      className={`flex w-full bg-primary px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-white ${
         loading ? "opacity-50 cursor-not-allowed" : ""
       }`}
       disabled={loading}
     >
-      <Image src={claim} alt="Claim" className="mr-2 h-8 w-8" />
+      <Image src={claim} alt="Claim" className="mr-2 h-8 w-8 rounded-lg" />
       {loading ? "Claiming..." : "Claim"}
     </Button>
   );
