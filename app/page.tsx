@@ -4,6 +4,7 @@ import prisma from "@/prisma/client";
 import { Transaction } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
+import { TransactionsTable } from "./transactions/_components/TransactionsTable";
 
 const TransactionsPage = async () => {
   const user = await getUser();
@@ -33,6 +34,7 @@ const TransactionsPage = async () => {
   return (
     <div className="p-1 md:p-4">
       <TransactionList transactions={transactions} />
+      <TransactionsTable transactions={transactions} offset={null} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { getUser } from "@/auth";
 import TransactionList from "@/components/transactions/TransactionList";
 import prisma from "@/prisma/client";
 import React from "react";
+import { TransactionsTable } from "./_components/TransactionsTable";
 
 const TransactionsPage = async () => {
   const user = await getUser();
@@ -10,6 +11,7 @@ const TransactionsPage = async () => {
       userId: user?.id,
     },
   });
+  console.log(transactions);
   return (
     <div className="p-4 ">
       <div className="mb-5">
@@ -18,6 +20,7 @@ const TransactionsPage = async () => {
         </h2>
       </div>
       <TransactionList transactions={transactions} />
+      <TransactionsTable transactions={ transactions } offset={ null } />
     </div>
   );
 };
