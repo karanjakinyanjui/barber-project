@@ -52,7 +52,4 @@ export async function updateTransaction(id, data) {
   return response.data;
 }
 
-// export async function claimTransaction(transID){
-//   const response = await axios.patch(`/transactions`, { id, ...data });
-//   return response.data;
-// }
+
