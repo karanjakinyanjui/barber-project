@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import unclaim from "@/public/unclaim.png";
 import Image from "next/image";
 import { Transaction } from "@prisma/client";
-import { claimTransaction } from "./claimAction";
+import { claimTransaction } from "./actions";
 import toast from "react-hot-toast";
 
 interface Props {

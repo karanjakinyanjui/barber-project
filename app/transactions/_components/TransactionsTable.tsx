@@ -1,6 +1,4 @@
 import React from "react";
-import claim from "@/public/claim.png";
-import Image from "next/image";
 import {
   TableHead,
   TableRow,
@@ -11,15 +9,16 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Transaction } from "@prisma/client";
-import { TrashIcon } from "lucide-react";
 import Link from "next/link";
+import { getAdmin } from "@/auth";
+import Actions from "./Actions";
 
 interface TransactionsTableProps {
   transactions: Transaction[];
   offset: number | null;
 }
 
-export function TransactionsTable({
+export async function TransactionsTable({
   transactions,
   offset,
 }: TransactionsTableProps) {
@@ -63,13 +62,14 @@ export function TransactionsTable({
   );
 }
 
-function TransactionRow({ transaction }: { transaction: Transaction }) {
+async function TransactionRow({ transaction }: { transaction: Transaction }) {
   const formatDate = (dateStr: string) => {
     const year = dateStr.substring(0, 4);
     const month = dateStr.substring(4, 6);
     const day = dateStr.substring(6, 8);
     return `${day}-${month}-${year}`;
   };
+  const admin = await getAdmin();
 
   return (
     <TableRow>
@@ -77,7 +77,7 @@ function TransactionRow({ transaction }: { transaction: Transaction }) {
       <TableCell>{formatDate(transaction.TransTime)}</TableCell>
       <TableCell>{transaction.TransAmount}</TableCell>
       <TableCell className="flex">
-        <Image src={claim} alt="Claim" className="mr-2 h-8 w-8 rounded-lg" />
+        <Actions admin={!!admin} />
       </TableCell>
     </TableRow>
   );
