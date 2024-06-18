@@ -21,6 +21,18 @@ export const getUser = async () => {
   return user;
 };
 
+export const getDBUser = async () => {
+  const user = await getUser();
+  if (!user) return null;
+
+  const dbUser = await prisma.user.findUnique({
+    where: {
+      id: user.id,
+    },
+  });
+  return dbUser;
+};
+
 export const getAdmin = async () => {
   const user = await getUser();
   if (!user) return null;

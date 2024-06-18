@@ -90,7 +90,7 @@ async function TransactionRow({
       <TableCell>{formatDate(transaction.TransTime)}</TableCell>
       <TableCell>{transaction.TransAmount}</TableCell>
       <TableCell className="flex">
-        <AssignModal transaction={transaction} users={userChoices} />
+        {admin && <AssignModal transaction={transaction} users={userChoices} />}
       </TableCell>
     </TableRow>
   );

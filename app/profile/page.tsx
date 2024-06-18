@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { getUser, signOut } from "@/auth";
+import { getDBUser, signOut } from "@/auth";
 import phone from "@/public/phone.png";
 import name from "@/public/name.png";
 import email from "@/public/email.png";
@@ -44,7 +44,7 @@ const CardLink: React.FC<CardLinkProps> = ({ imageSrc, title, data }) => (
 );
 
 const UserProfile: React.FC = async () => {
-  const user: User = await getUser();
+  const user = await getDBUser();
 
   return (
     <section className="text-white">
@@ -71,7 +71,7 @@ const UserProfile: React.FC = async () => {
           <CardLink
             imageSrc={calendar}
             title="Member Since"
-            data={new Date(user?.createdAt).toLocaleDateString()}
+            data={new Date(user?.createdAt!).toLocaleDateString()}
           />
         </div>
       </div>
