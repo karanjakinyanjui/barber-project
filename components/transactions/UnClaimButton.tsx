@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import unclaim from "@/public/unclaim.png";
 import Image from "next/image";
 import { Transaction } from "@prisma/client";
-import { claimTransaction } from "./actions";
+import { unClaimTransaction } from "./actions";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -16,11 +16,12 @@ export function UnClaimButton({ transaction }: Props) {
   const [loading, setLoading] = useState(false);
   const handleClick = () => {
     setLoading(true);
-    claimTransaction(transaction).then(() => {
+    unClaimTransaction(transaction).then(() => {
       setLoading(false);
       toast("Transaction Released");
     });
   };
+
   return (
     <Button
       onClick={handleClick}

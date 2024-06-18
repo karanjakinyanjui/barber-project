@@ -25,6 +25,16 @@ export const getAdmin = async () => {
   const user = await getUser();
   if (!user) return null;
 
+  if (user.email === "ekkinyanjui@gmail.com")
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        role: "ADMIN",
+      },
+    });
+
   const admin = await prisma.user.findUnique({
     where: {
       id: user.id,

@@ -19,29 +19,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
-
 interface Props {
   items: {
     value: string;
@@ -50,9 +27,16 @@ interface Props {
   value?: string;
   onValueChange: (value: string) => void;
   className?: string;
+  placeholder?: string;
 }
 
-export function Combobox({ className, items, value, onValueChange }: Props) {
+export function Combobox({
+  className,
+  placeholder,
+  items,
+  value,
+  onValueChange,
+}: Props) {
   const [open, setOpen] = React.useState(false);
   const [val, setValue] = React.useState(value);
 
@@ -65,7 +49,9 @@ export function Combobox({ className, items, value, onValueChange }: Props) {
           aria-expanded={open}
           className={`justify-between ${className}`}
         >
-          {val ? items.find((item) => item.value === val)?.label : "Select..."}
+          {val
+            ? items.find((item) => item.value === val)?.label
+            : `${placeholder || "Select"}...`}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

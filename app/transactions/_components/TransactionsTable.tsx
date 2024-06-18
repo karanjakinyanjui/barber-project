@@ -8,13 +8,17 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Transaction } from "@prisma/client";
+import { Transaction, User } from "@prisma/client";
 import Link from "next/link";
 import { getAdmin } from "@/auth";
-import Actions from "./Actions";
+import AssignModal from "./AssignModal";
+import prisma from "@/prisma/client";
 
+interface TransactionWithUser extends Transaction {
+  User: User | null;
+}
 interface TransactionsTableProps {
-  transactions: Transaction[];
+  transactions: TransactionWithUser[];
   offset: number | null;
 }
 
@@ -62,7 +66,11 @@ export async function TransactionsTable({
   );
 }
 
-async function TransactionRow({ transaction }: { transaction: Transaction }) {
+async function TransactionRow({
+  transaction,
+}: {
+  transaction: TransactionWithUser;
+}) {
   const formatDate = (dateStr: string) => {
     const year = dateStr.substring(0, 4);
     const month = dateStr.substring(4, 6);
@@ -70,6 +78,11 @@ async function TransactionRow({ transaction }: { transaction: Transaction }) {
     return `${day}-${month}-${year}`;
   };
   const admin = await getAdmin();
+  let users = await prisma.user.findMany();
+  let userChoices = users.map((i) => ({
+    label: i.name || "",
+    value: i.id || "",
+  }));
 
   return (
     <TableRow>
@@ -77,7 +90,7 @@ async function TransactionRow({ transaction }: { transaction: Transaction }) {
       <TableCell>{formatDate(transaction.TransTime)}</TableCell>
       <TableCell>{transaction.TransAmount}</TableCell>
       <TableCell className="flex">
-        <Actions admin={!!admin} />
+        <AssignModal transaction={transaction} users={userChoices} />
       </TableCell>
     </TableRow>
   );

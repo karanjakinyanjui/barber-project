@@ -6,12 +6,15 @@ import { TransactionsTable } from "./_components/TransactionsTable";
 
 const TransactionsPage = async () => {
   const user = await getUser();
+
   const transactions = await prisma.transaction.findMany({
     where: {
       userId: user?.id,
     },
+    include: {
+      User: true,
+    },
   });
-  console.log(transactions);
   return (
     <div className="p-4 ">
       <div className="mb-5">
@@ -20,7 +23,7 @@ const TransactionsPage = async () => {
         </h2>
       </div>
       <TransactionList transactions={transactions} />
-      <TransactionsTable transactions={ transactions } offset={ null } />
+      <TransactionsTable transactions={transactions} offset={null} />
     </div>
   );
 };

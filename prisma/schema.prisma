@@ -28,9 +28,10 @@ model User {
   password      String?
   phone         String?
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Transaction Transaction[]
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  Transaction           Transaction[]
+  TransactionAssignment TransactionAssignment[]
 }
 
 model Account {
@@ -89,21 +90,37 @@ model Authenticator {
 }
 
 model Transaction {
-  id                Int      @id @default(autoincrement())
-  TransactionType   String
-  TransID           String   @unique
-  TransTime         String
-  TransactionTime   DateTime
-  TransAmount       Float
-  BusinessShortCode String
-  BillRefNumber     String
-  InvoiceNumber     String?
-  OrgAccountBalance String?
-  ThirdPartyTransID String?
-  MSISDN            String
-  FirstName         String
-  MiddleName        String?
-  LastName          String
-  User              User?    @relation(fields: [userId], references: [id])
-  userId            String?
+  id                    Int                     @id @default(autoincrement())
+  TransactionType       String
+  TransID               String                  @unique
+  TransTime             String
+  TransactionTime       DateTime
+  TransAmount           Float
+  BusinessShortCode     String
+  BillRefNumber         String
+  InvoiceNumber         String?
+  OrgAccountBalance     String?
+  ThirdPartyTransID     String?
+  MSISDN                String
+  FirstName             String
+  MiddleName            String?
+  LastName              String
+  User                  User?                   @relation(fields: [userId], references: [id])
+  userId                String?
+  TransactionAssignment TransactionAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TransactionAssignment {
+  id            String      @id @default(cuid())
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  transactionId Int
+
+  userId     String
+  assignedBy User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

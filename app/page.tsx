@@ -13,23 +13,13 @@ const TransactionsPage = async () => {
   if (!user) return null;
 
   const transactions = await prisma.transaction.findMany({
-    where: {
-      userId: null,
+    // where: {
+    //   userId: null,
+    // },
+    include: {
+      User: true,
     },
   });
-
-  const handleClaimed = async ({ TransID }: Transaction) => {
-    "use server";
-    await prisma.transaction.update({
-      where: {
-        TransID,
-      },
-      data: {
-        userId: user?.id!,
-      },
-    });
-    redirect("/");
-  };
 
   return (
     <div className="p-1 md:p-4">
