@@ -13,8 +13,10 @@ import { Separator } from "../ui/separator";
 import { PageItems } from "@/constants/constants";
 import Link from "next/link";
 import Logo1 from "../ui/Logos";
+import { getAdmin } from "@/auth";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const admin = await getAdmin();
   return (
     <Sheet>
       <SheetTrigger className="block md:hidden justify-center items-center">
@@ -28,16 +30,19 @@ export default function Sidebar() {
           <Separator />
 
           <div className="flex flex-col gap-3">
-            {PageItems.map((item) => (
-              <Link href={item.link} key={item.name} className="w-full">
-                <Button
-                  variant="outline"
-                  className="w-full border border-primary bg-slate-600 text-white dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg transition-colors duration-300"
-                >
-                  {item.name}
-                </Button>
-              </Link>
-            ))}
+            {PageItems.map(
+              (item) =>
+                (!item.admin || admin) && (
+                  <Link href={item.link} key={item.name} className="w-full">
+                    <Button
+                      variant="outline"
+                      className="w-full border border-primary bg-slate-600 text-white dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg transition-colors duration-300"
+                    >
+                      {item.name}
+                    </Button>
+                  </Link>
+                )
+            )}
           </div>
         </SheetHeader>
       </SheetContent>

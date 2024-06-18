@@ -6,5 +6,6 @@ export const PageItems = [
   {
     name: "Users",
     link: "/users",
+    admin: true,
   },
 ];

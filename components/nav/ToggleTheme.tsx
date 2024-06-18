@@ -29,10 +29,10 @@ export function ToggleTheme() {
           }`}
         >
           <span className="text-black dark:hidden">
-            {theme === "light" ? <SunIcon /> : <MoonIcon />}
+            <SunIcon />
           </span>
           <span className="hidden text-black dark:inline-block">
-            {theme === "light" ? <SunIcon /> : <MoonIcon />}
+            <MoonIcon />
           </span>
         </span>
       </label>

@@ -1,17 +1,16 @@
-import { getAdmin, getUser } from "@/auth";
+import { getAdmin } from "@/auth";
 import { UsersTable } from "./_components/users-table";
 import prisma from "@/prisma/client";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { UserPlusIcon } from "lucide-react";
-import toast from "react-hot-toast";
+import NotAllowed from "@/components/NotAllowed";
 
 export default async function page() {
   const admin = await getAdmin();
   if (!admin) {
-    toast("You do not have permission to view this page");
-    return redirect("/");
+    // toast.success("You do not have permission to view this page");
+    return <NotAllowed />;
   }
   const users = await prisma.user.findMany();
   return (
