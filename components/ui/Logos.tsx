@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Logo1() {
   return (
-    <div className="">
+    <Link href="/" className="">
       <Image src="/logo.svg" alt="Google icon" width={80} height={80} />
-    </div>
+    </Link>
   );
 }

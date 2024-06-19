@@ -81,7 +81,7 @@ export default function UserForm({ user }: Props) {
               }))}
             />
           </div>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
           <Button onClick={handleSubmit} className="w-full">
             {loading ? "Loading..." : "Submit"}
           </Button>

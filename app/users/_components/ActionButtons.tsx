@@ -27,7 +27,10 @@ const ActionButtons = ({ id }: { id: string }) => {
         size="sm"
         variant="ghost"
       >
-        <Link href={`/users/${id}/edit`}>
+        <Link
+          href={`/users/${id}/edit`}
+          className="transition-opacity duration-300 hover:opacity-75"
+        >
           <PencilIcon size="16" />
         </Link>
       </Button>

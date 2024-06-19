@@ -9,10 +9,10 @@ import NotAllowed from "@/components/NotAllowed";
 export default async function page() {
   const admin = await getAdmin();
   if (!admin) {
-    // toast.success("You do not have permission to view this page");
     return <NotAllowed />;
   }
   const users = await prisma.user.findMany();
+
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
       <div className="flex justify-between items-center mb-8">
@@ -22,7 +22,7 @@ export default async function page() {
         <Button variant="outline">
           <Link
             href="/users/new"
-            className="flex gap-3 items-center justify-center"
+            className="flex gap-3 items-center justify-center transition-opacity duration-300 hover:opacity-75"
           >
             <UserPlusIcon />
             Add User

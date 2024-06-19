@@ -1,14 +1,14 @@
-import { getUser } from "@/auth";
+import { getAdmin, getUser } from "@/auth";
 import TransactionList from "@/components/transactions/TransactionList";
 import prisma from "@/prisma/client";
-import { Transaction } from "@prisma/client";
-import { redirect } from "next/navigation";
 import React from "react";
 import { TransactionsTable } from "./transactions/_components/TransactionsTable";
 
 const TransactionsPage = async () => {
   const user = await getUser();
   // console.log(user);
+
+  const admin = await getAdmin();
 
   if (!user) return null;
 
@@ -21,10 +21,15 @@ const TransactionsPage = async () => {
     },
   });
 
+  console.log(transactions);
+
   return (
     <div className="p-1 md:p-4">
-      <TransactionList transactions={transactions} />
-      <TransactionsTable transactions={transactions} offset={null} />
+      {admin ? (
+        <TransactionsTable transactions={transactions} offset={null} />
+      ) : (
+        <TransactionList transactions={transactions} />
+      )}
     </div>
   );
 };

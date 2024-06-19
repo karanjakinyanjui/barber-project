@@ -8,4 +8,9 @@ export const PageItems = [
     link: "/users",
     admin: true,
   },
+  // {
+  //   name: "Summary",
+  //   link: "/summary",
+  //   admin: true,
+  // },
 ];

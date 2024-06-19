@@ -27,7 +27,7 @@ const AssignModal = ({ transaction, users }: Props) => {
       items={users}
       value={transaction.userId || ""}
       placeholder="Assign"
-      className={transaction.userId ? "bg-red-900" : ""}
+      className={transaction.userId ? "bg-transparent" : "bg-primary"}
     />
   );
 };
