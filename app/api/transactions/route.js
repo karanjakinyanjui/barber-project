@@ -1,8 +1,9 @@
 export const dynamic = "force-dynamic"; // defaults to auto
 import { PrismaClient } from "@prisma/client";
 import { processTransaction } from "@/lib/helpers";
+import { getTransactions } from "@/lib/transactions";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 // Get all tx
 export async function GET(request) {
@@ -12,60 +13,7 @@ export async function GET(request) {
   let dateStr = searchParams.get("date");
   let start = searchParams.get("start");
   let end = searchParams.get("end");
-  const q = {
-    where: {},
-    orderBy: {
-      TransactionTime: "desc",
-    },
-    include: {
-      User: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  };
-  if (claimed) {
-    if (claimed === "true") {
-      q.where = {
-        NOT: [
-          {
-            userId: null,
-          },
-        ],
-      };
-    } else {
-      q.where = {
-        userId: null,
-      };
-    }
-  }
-  if (start) {
-    q.where = {
-      ...q.where,
-      TransactionTime: {
-        gte: new Date(start),
-        lte: new Date(end),
-      },
-    };
-  }
-
-  if (dateStr) {
-    let today = new Date(dateStr);
-    let date = new Date(dateStr);
-
-    let nextDate = new Date(date.setDate(date.getDate() + 1));
-
-    q.where = {
-      ...q.where,
-      TransactionTime: {
-        gte: today,
-        lt: nextDate,
-      },
-    };
-  }
-  let tx = await prisma.transaction.findMany(q);
+  let tx = await getTransactions({ claimed, start, end, dateStr });
   tx = tx.map((t) => ({
     ...t,
     user: t.User?.name,

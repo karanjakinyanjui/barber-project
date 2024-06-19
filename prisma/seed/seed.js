@@ -7,19 +7,37 @@ let users = require("./users.json");
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const userList = users.map((user) => ({
-    ...user,
-    email: `${user.email}@mail.com`,
-    password: bcrypt.hashSync(user.password, 10),
-    role: "EMPLOYEE",
-  }));
-
-  await prisma.user.createMany({
-    data: userList,
+const genDates = () =>
+  Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    return date;
   });
 
-  transactions = transactions.map(processTransaction);
+const genRandomString = (len = 10) =>
+  Math.random().toString(36).substring(len).toUpperCase();
+
+const dates = [...genDates(), ...genDates(), ...genDates(), ...genDates()];
+
+console.log(dates.length);
+
+async function main() {
+  // const userList = users.map((user) => ({
+  //   ...user,
+  //   email: `${user.email}@mail.com`,
+  //   password: bcrypt.hashSync(user.password, 10),
+  //   role: "EMPLOYEE",
+  // }));
+
+  // await prisma.user.createMany({
+  //   data: userList,
+  // });
+
+  transactions = transactions.map((tx, idx) => ({
+    ...processTransaction(tx),
+    TransactionTime: dates[idx],
+    TransID: genRandomString(),
+  }));
 
   await prisma.transaction.createMany({ data: transactions });
 }
