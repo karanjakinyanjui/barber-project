@@ -22,16 +22,16 @@ const dates = [...genDates(), ...genDates(), ...genDates(), ...genDates()];
 console.log(dates.length);
 
 async function main() {
-  // const userList = users.map((user) => ({
-  //   ...user,
-  //   email: `${user.email}@mail.com`,
-  //   password: bcrypt.hashSync(user.password, 10),
-  //   role: "EMPLOYEE",
-  // }));
+  const userList = users.map((user) => ({
+    ...user,
+    email: `${user.email}@mail.com`,
+    password: bcrypt.hashSync(user.password, 10),
+    role: "EMPLOYEE",
+  }));
 
-  // await prisma.user.createMany({
-  //   data: userList,
-  // });
+  await prisma.user.createMany({
+    data: userList,
+  });
 
   transactions = transactions.map((tx, idx) => ({
     ...processTransaction(tx),

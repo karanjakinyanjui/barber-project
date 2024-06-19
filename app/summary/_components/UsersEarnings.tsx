@@ -1,4 +1,3 @@
-"use client";
 import prisma from "@/prisma/client";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
@@ -14,7 +13,7 @@ export default async function UsersEarnings() {
   return (
     <div>
       {transactions.map((transaction) => (
-        <div>
+        <div key={transaction.id}>
           <p>{transaction?.BillRefNumber}</p>
           <p>{transaction?.TransAmount}</p>
           <p>{transaction?.User?.name}</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import { addDays, format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, CircleX } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,11 +22,6 @@ interface Props {
 
 export function DateRangePicker({ start, end, setDateRange }: Props) {
   const [calendarOpen, setCalendarOpen] = useState(false);
-  const initialRange: DateRange = {
-    from: new Date(),
-    to: addDays(new Date(), 4),
-  };
-
   const [range, setRange] = useState<DateRange | undefined>();
 
   useEffect(() => {
@@ -36,12 +31,21 @@ export function DateRangePicker({ start, end, setDateRange }: Props) {
         to: new Date(end!),
       });
     }
-  }, [range]);
+  }, [start, end]);
 
   const handleSelect = (range: DateRange | undefined) => {
-    setCalendarOpen(false);
     setRange(range);
-    setDateRange(range?.from, range?.to);
+    if (range?.from && range?.to) {
+      setCalendarOpen(false);
+      setDateRange(range?.from, range?.to);
+    }
+  };
+
+  const clearDate = (e: any) => {
+    setRange(undefined);
+    e.stopPropagation();
+    setCalendarOpen(false);
+    setDateRange(undefined);
   };
 
   return (
@@ -50,13 +54,18 @@ export function DateRangePicker({ start, end, setDateRange }: Props) {
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className={cn("w-[280px] justify-start text-left font-normal")}
+          className={cn(
+            "md:w-[280px] w-[372px] justify-start text-left font-normal"
+          )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {range?.from && range?.to ? (
-            `${format(range?.from!, "PPP")} to ${format(range?.to!, "PPP")}`
+            <>
+              {`${format(range?.from!, "MM/dd/yyyy")} to ${format(range?.to!, "MM/dd/yyyy")}`}
+              <CircleX className="ml-auto cursor-pointer" onClick={clearDate} />
+            </>
           ) : (
-            <span>Select Custom date</span>
+            <span>Select Custom date range</span>
           )}
         </Button>
       </PopoverTrigger>

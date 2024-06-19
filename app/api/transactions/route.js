@@ -1,9 +1,7 @@
 export const dynamic = "force-dynamic"; // defaults to auto
-import { PrismaClient } from "@prisma/client";
 import { processTransaction } from "@/lib/helpers";
 import { getTransactions } from "@/lib/transactions";
-
-export const prisma = new PrismaClient();
+import prisma from "@/prisma/client";
 
 // Get all tx
 export async function GET(request) {
@@ -19,7 +17,7 @@ export async function GET(request) {
     user: t.User?.name,
     time: t.TransactionTime.toTimeString().slice(0, 5),
   }));
-  return new Response(JSON.stringify(tx, null, 2));
+  return Response.json(tx);
 }
 
 export async function POST(req) {

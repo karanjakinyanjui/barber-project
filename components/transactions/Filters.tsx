@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Combobox } from "../ui/combobox";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { DatePicker } from "../ui/DatePicker";
 import { doSearch } from "./doSearch";
 import { DateRangePicker } from "../ui/DateRangePicker";
@@ -10,7 +10,8 @@ import { User } from "@prisma/client";
 
 const url = "/api/transactions";
 
-function getDateString(date: Date) {
+function getDateString(date?: Date) {
+  if (!date) return "";
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
@@ -90,6 +91,9 @@ interface Props {
 
 const Filters = ({ params, users }: Props) => {
   const [filter, setFilter] = useState(params);
+  const [routing, setRouting] = useState(false);
+  const [nextParams, setNextParams] = useState(params);
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   let userChoices = [
@@ -123,13 +127,9 @@ const Filters = ({ params, users }: Props) => {
         if (!allParams.get(param)) allParams.delete(param);
       }
     }
+    setRouting(true);
     router.push("?" + allParams.toString());
   };
-
-  // const handleDateChange = (dateStr: string) => {
-  //   const newParams = new URLSearchParams(dateStr);
-
-  // };
 
   const handleValueChange = (value: string) => {
     doSearch(value);
@@ -140,41 +140,46 @@ const Filters = ({ params, users }: Props) => {
     handleFilterChange(`?user=${name}`);
   };
 
+  useEffect(() => {
+    setRouting(false);
+  }, [searchParams]);
+
   return (
-    <div className="flex gap-5 mb-3">
-      <Combobox
-        value={filter}
-        items={dates}
-        onValueChange={handleValueChange}
-        placeholder="Select a date range"
-      />
-      <DatePicker
-        date={date}
-        setDate={(date?: Date) => {
-          if (date) {
+    <>
+      <div className="grid space-x-4 gap-2 md:grid-cols-4">
+        <Combobox
+          value={filter}
+          items={dates}
+          onValueChange={handleValueChange}
+          placeholder="Select a date range"
+          className="mx-4 "
+        />
+        <DatePicker
+          date={date}
+          setDate={(date?: Date) => {
             const dateStr = getDateString(date);
             handleFilterChange(`?date=${dateStr}`);
-          }
-        }}
-      />
-      <DateRangePicker
-        start={search.get("start")}
-        end={search.get("end")}
-        setDateRange={(start?: Date, end?: Date) => {
-          if (start && end) {
+          }}
+        />
+        <DateRangePicker
+          start={search.get("start")}
+          end={search.get("end")}
+          setDateRange={(start?: Date, end?: Date) => {
             let startStr = getDateString(start);
             let endStr = getDateString(end);
             handleFilterChange(`?start=${startStr}&end=${endStr}`);
-          }
-        }}
-      />
-      <Combobox
-        onValueChange={handleSetUser}
-        items={userChoices}
-        value={search.get("user") || ""}
-        placeholder="Select User"
-      />
-    </div>
+          }}
+        />
+        <Combobox
+          onValueChange={handleSetUser}
+          items={userChoices}
+          value={search.get("user") || ""}
+          placeholder="Select User"
+          className="mx-4"
+        />
+      </div>
+      {routing && <div className="horizontal-loader w-full"></div>}
+    </>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, CircleX } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { IconButton } from "@mui/material";
+import { Close } from "@radix-ui/react-toast";
+import { ExitIcon } from "@radix-ui/react-icons";
 
 interface Props {
   date?: Date;
@@ -20,10 +23,19 @@ interface Props {
 
 export function DatePicker({ date, setDate }: Props) {
   const [calendarOpen, setCalendarOpen] = React.useState(false);
+  const [value, setValue] = React.useState(date);
 
   const selectDate = (date?: Date) => {
+    setValue(date);
     setCalendarOpen(false);
     setDate(date);
+  };
+
+  const clearDate = (e: any) => {
+    setValue(undefined);
+    e.stopPropagation();
+    setCalendarOpen(false);
+    setDate(undefined);
   };
 
   return (
@@ -32,18 +44,25 @@ export function DatePicker({ date, setDate }: Props) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "md:w-[280px] w-[372px] justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Select Custom date</span>}
+          {value ? (
+            <>
+              {format(value, "PPP")}
+              <CircleX className="ml-auto cursor-pointer" onClick={clearDate} />
+            </>
+          ) : (
+            <span>Select Custom date</span>
+          )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-full p-0">
         <Calendar
           mode="single"
-          selected={date}
+          selected={value}
           onSelect={selectDate}
           initialFocus
         />

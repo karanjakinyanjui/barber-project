@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "prisma/seed/seed.js",
-    "app/api/transactions/route.js"
+    "app/api/transactions/route.js",
+    "lib/transactions.js"
   ],
   "exclude": ["node_modules"]
 }
