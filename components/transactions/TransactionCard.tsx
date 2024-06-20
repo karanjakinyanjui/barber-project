@@ -32,7 +32,7 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
         </div>
 
         <div className="flex flex-1 flex-col justify-between bg-cover bg-no-repeat p-4">
-          <div className="flex flex-row self-end max-w-fit justify-end border-b border-gray-900 dark:border-zinc-50">
+          <div className="flex flex-row self-start max-w-fit justify-start ml-2 border-b border-gray-500 dark:border-zinc-50">
             <span>{formattedTimeOnly}</span>
           </div>
 

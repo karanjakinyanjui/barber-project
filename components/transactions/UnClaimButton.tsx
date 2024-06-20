@@ -25,8 +25,8 @@ export function UnClaimButton({ transaction }: Props) {
   return (
     <Button
       onClick={handleClick}
-      variant="secondary"
-      className={`flex w-full bg-red-800 px-5 py-3 text-center text-xs font-bold uppercase text-white hover:text-black transition hover:bg-white ${
+      variant="destructive"
+      className={`flex w-full px-5 py-3 text-center text-xs border border-inherit font-bold uppercase text-white transition-all hover:bg-primary  ${
         loading ? "opacity-50 cursor-not-allowed" : ""
       }`}
       disabled={loading}

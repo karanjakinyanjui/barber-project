@@ -7,6 +7,7 @@ import { DatePicker } from "../ui/DatePicker";
 import { doSearch } from "./doSearch";
 import { DateRangePicker } from "../ui/DateRangePicker";
 import { User } from "@prisma/client";
+import Loading from "../ui/Loading";
 
 const url = "/api/transactions";
 
@@ -146,39 +147,45 @@ const Filters = ({ params, users }: Props) => {
 
   return (
     <>
-      <div className="grid space-x-4 gap-2 md:grid-cols-4">
-        <Combobox
-          value={filter}
-          items={dates}
-          onValueChange={handleValueChange}
-          placeholder="Select a date range"
-          className="mx-4 "
-        />
-        <DatePicker
-          date={date}
-          setDate={(date?: Date) => {
-            const dateStr = getDateString(date);
-            handleFilterChange(`?date=${dateStr}`);
-          }}
-        />
-        <DateRangePicker
-          start={search.get("start")}
-          end={search.get("end")}
-          setDateRange={(start?: Date, end?: Date) => {
-            let startStr = getDateString(start);
-            let endStr = getDateString(end);
-            handleFilterChange(`?start=${startStr}&end=${endStr}`);
-          }}
-        />
-        <Combobox
-          onValueChange={handleSetUser}
-          items={userChoices}
-          value={search.get("user") || ""}
-          placeholder="Select User"
-          className="mx-4"
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="w-full">
+          <Combobox
+            value={filter}
+            items={dates}
+            onValueChange={handleValueChange}
+            placeholder="Select a date range"
+          />
+        </div>
+        <div className="w-full">
+          <DatePicker
+            date={date}
+            setDate={(date?: Date) => {
+              const dateStr = getDateString(date);
+              handleFilterChange(`?date=${dateStr}`);
+            }}
+          />
+        </div>
+        <div className="w-full">
+          <DateRangePicker
+            start={search.get("start")}
+            end={search.get("end")}
+            setDateRange={(start?: Date, end?: Date) => {
+              let startStr = getDateString(start);
+              let endStr = getDateString(end);
+              handleFilterChange(`?start=${startStr}&end=${endStr}`);
+            }}
+          />
+        </div>
+        <div className="w-full">
+          <Combobox
+            onValueChange={handleSetUser}
+            items={userChoices}
+            value={search.get("user") || ""}
+            placeholder="Select User"
+          />
+        </div>
       </div>
-      {routing && <div className="horizontal-loader w-full"></div>}
+      {routing && <Loading />}
     </>
   );
 };

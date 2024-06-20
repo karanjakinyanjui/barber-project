@@ -24,7 +24,12 @@ export default async function User() {
         <Avatar>
           <AvatarImage src={user?.image!} />
           <AvatarFallback>
-            <Image src="/avatar.svg" alt="Google icon" width={80} height={80} />
+            <Image
+              src="/avatar.svg"
+              alt=" placeholder"
+              width={80}
+              height={80}
+            />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

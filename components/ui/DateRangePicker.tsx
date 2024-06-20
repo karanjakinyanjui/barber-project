@@ -50,18 +50,18 @@ export function DateRangePicker({ start, end, setDateRange }: Props) {
 
   return (
     <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-      {" "}
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className={cn(
-            "md:w-[280px] w-[372px] justify-start text-left font-normal"
-          )}
+          className={cn("w-full justify-start text-left font-normal")}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {range?.from && range?.to ? (
             <>
-              {`${format(range?.from!, "MM/dd/yyyy")} to ${format(range?.to!, "MM/dd/yyyy")}`}
+              {`${format(range?.from!, "MM/dd/yyyy")} to ${format(
+                range?.to!,
+                "MM/dd/yyyy"
+              )}`}
               <CircleX className="ml-auto cursor-pointer" onClick={clearDate} />
             </>
           ) : (

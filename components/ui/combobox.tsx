@@ -47,7 +47,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={`justify-between ${className}`}
+          className={`justify-between w-full ${className}`}
         >
           {items.find((item) => item.value === val)?.label ||
             `${placeholder || "Select"}...`}

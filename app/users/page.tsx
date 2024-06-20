@@ -16,7 +16,7 @@ export default async function page() {
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="font-semibold text-lg text-white md:text-2xl rounded-lg p-2 border border-primary-foreground">
+        <h1 className="font-semibold text-lg md:text-2xl rounded-lg p-2 border border-primary-foreground">
           Users
         </h1>
         <Button variant="outline">

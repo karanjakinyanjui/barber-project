@@ -25,9 +25,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Toaster />
-
           <NavBar />
-          <div className="mt-16 min-h-screen w-full overflow-x-hidden bg-gray-700 dark:bg-black pt-6">
+          <div className="mt-16 min-h-screen w-full overflow-x-hidden bg-gray-50 dark:bg-black pt-6">
             {children}
           </div>
         </ThemeProvider>

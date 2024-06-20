@@ -33,11 +33,11 @@ export async function TransactionsTable({
       <Table className="">
         <TableHeader>
           <TableRow className=" ">
-            <TableHead className="max-w-[150px] font-bold text-white">
+            <TableHead className="max-w-fit font-bold ">
               Transaction ID
             </TableHead>
-            <TableHead className="font-bold text-white">Date</TableHead>
-            <TableHead className="font-bold text-white">Amount</TableHead>
+            <TableHead className="font-bold ">Date</TableHead>
+            <TableHead className="font-bold ">Amount</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -71,8 +71,10 @@ async function TransactionRow({
     const year = dateStr.substring(0, 4);
     const month = dateStr.substring(4, 6);
     const day = dateStr.substring(6, 8);
-    return `${day}-${month}-${year}`;
+    // return `${day}-${month}-${year}`;
+    return `${day} ${month}`;
   };
+
   const admin = await getAdmin();
   let userChoices = users.map((i) => ({
     label: i.name || "",
@@ -81,9 +83,15 @@ async function TransactionRow({
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{transaction.TransID}</TableCell>
-      <TableCell>{transaction.TransactionTime.toDateString()}</TableCell>
-      <TableCell>{transaction.TransAmount}</TableCell>
+      <TableCell className="font-medium whitespace-nowrap">
+        {transaction.TransID}
+      </TableCell>
+      <TableCell className="whitespace-nowrap">
+        {transaction.TransactionTime.toDateString()}
+      </TableCell>
+      <TableCell className="whitespace-nowrap">
+        {transaction.TransAmount}
+      </TableCell>
       <TableCell className="flex">
         {admin && <AssignModal transaction={transaction} users={userChoices} />}
       </TableCell>
