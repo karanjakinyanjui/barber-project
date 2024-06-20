@@ -16,31 +16,37 @@ const loading = () => {
   return (
     <div>
       <Filters params="" users={[]} />
-      <Table className="">
+      <Table className="mt-4">
         <TableHeader>
-          <TableRow className=" ">
-            <TableHead className="max-w-[150px] font-bold text-white">
-              Transaction ID
+          <TableRow>
+            <TableHead>
+              <Skeleton variant="rounded" width={150} height={30} />
             </TableHead>
-            <TableHead className="font-bold text-white">Date</TableHead>
-            <TableHead className="font-bold text-white">Amount</TableHead>
-            <TableHead></TableHead>
+            <TableHead>
+              <Skeleton variant="rounded" width={100} height={30} />
+            </TableHead>
+            <TableHead>
+              <Skeleton variant="rounded" width={80} height={30} />
+            </TableHead>
+            <TableHead>
+              <Skeleton variant="rounded" width={50} height={30} />
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {transactions.map((transaction) => (
             <TableRow key={transaction}>
               <TableCell className="font-medium">
-                <Skeleton />
+                <Skeleton variant="rounded" width={150} height={30} />
               </TableCell>
               <TableCell>
-                <Skeleton />
+                <Skeleton variant="rounded" width={100} height={30} />
               </TableCell>
               <TableCell>
-                <Skeleton />
+                <Skeleton variant="rounded" width={80} height={30} />
               </TableCell>
               <TableCell className="flex">
-                <Skeleton />
+                <Skeleton variant="rounded" width={50} height={30} />
               </TableCell>
             </TableRow>
           ))}
